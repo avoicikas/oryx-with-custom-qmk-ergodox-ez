@@ -6,6 +6,9 @@
 void matrix_scan_user(void) {
   achordion_task();
 }
+uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
+  return 100;
+}
 
 enum custom_keycodes {
   RGB_SLD = EZ_SAFE_RANGE,
