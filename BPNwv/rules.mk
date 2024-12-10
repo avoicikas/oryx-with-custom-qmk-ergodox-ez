@@ -7,3 +7,4 @@ SPACE_CADET_ENABLE = no
 CAPS_WORD_ENABLE = yes
 LTO_ENABLE = yes
 SRC += features/achordion.c
+REPEAT_KEY_ENABLE = yes
