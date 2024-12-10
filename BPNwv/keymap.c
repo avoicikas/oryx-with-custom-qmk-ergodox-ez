@@ -128,17 +128,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-const uint16_t PROGMEM combo0[] = { KC_E, KC_W, COMBO_END};
-const uint16_t PROGMEM combo1[] = { LT(1,KC_BSPC), LT(5,KC_ENTER), COMBO_END};
-const uint16_t PROGMEM combo2[] = { LT(2,KC_SPACE), LT(6,KC_ESCAPE), COMBO_END};
-const uint16_t PROGMEM combo3[] = { LT(6,KC_ESCAPE), LT(1,KC_BSPC), COMBO_END};
-
-combo_t key_combos[COMBO_COUNT] = {
-    COMBO(combo0, OSL(3)),
-    COMBO(combo1, TG(1)),
-    COMBO(combo2, OSL(3)),
-    COMBO(combo3, OSL(6)),
-};
 
 
 extern rgb_config_t rgb_matrix_config;
