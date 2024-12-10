@@ -1,6 +1,11 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
 #include "i18n.h"
+#include "features/achordion.h"
+
+void matrix_scan_user(void) {
+  achordion_task();
+}
 
 enum custom_keycodes {
   RGB_SLD = EZ_SAFE_RANGE,
@@ -178,6 +183,8 @@ bool rgb_matrix_indicators_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+  if (!process_achordion(keycode, record)) { return false; }
   switch (keycode) {
     case ST_MACRO_0:
     if (record->event.pressed) {
