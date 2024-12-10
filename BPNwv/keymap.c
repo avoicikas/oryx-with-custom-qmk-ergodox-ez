@@ -89,7 +89,7 @@ enum tap_dance_codes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_ergodox_pretty(
     KC_AUDIO_MUTE,  TD(DANCE_0),    TD(DANCE_1),    TD(DANCE_2),    TD(DANCE_3),    TD(DANCE_4),    KC_TRANSPARENT,                                 KC_TRANSPARENT, TD(DANCE_5),    TD(DANCE_6),    TD(DANCE_7),    TD(DANCE_8),    TD(DANCE_9),    KC_TRANSPARENT,
-    CW_TOGG,        KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC_F8,                                          KC_TRANSPARENT, KC_Y,           KC_U,           LT(3,KC_I),     KC_O,           KC_P,           MO(4),
+    CW_TOGG,        KC_Q,           KC_W,           LT(3,KC_E),     KC_R,           KC_T,           KC_F8,                                          KC_TRANSPARENT, KC_Y,           KC_U,           LT(3,KC_I),     KC_O,           KC_P,           MO(4),
     MT(MOD_LSFT | MOD_LCTL, KC_TAB),MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_S),MT(MOD_LCTL, KC_D),MT(MOD_LSFT, KC_F),KC_G,                                                                           KC_H,           MT(MOD_RSFT, KC_J),MT(MOD_RCTL, KC_K),MT(MOD_RALT, KC_L),MT(MOD_RGUI, KC_SCLN),KC_DELETE,
     OSM(MOD_HYPR),  KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,           KC_F9,                                          KC_TRANSPARENT, KC_N,           KC_M,           KC_COMMA,       KC_DOT,         KC_SLASH,       OSM(MOD_MEH),
     KC_MS_LEFT,     KC_MS_UP,       KC_MS_DOWN,     KC_MS_RIGHT,    KC_MS_BTN1,                                                                                                     LT(6,KC_ESCAPE),KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,
