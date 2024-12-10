@@ -10,7 +10,7 @@ on:
       layout_geometry:
         description: "voyager | moonlander | ergodox_ez | ergodox_ez/stm32/glow | ergodox_ez/stm32/shine | ergodox_ez/m32u4/glow | ergodox_ez/m32u4/shine | planck_ez | planck_ez/glow"
         required: true
-        default: "ergodox_ez"
+        default: "ergodox_ez/m32u4/glow"
 
 permissions:
   contents: write
