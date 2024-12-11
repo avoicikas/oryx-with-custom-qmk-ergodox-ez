@@ -46,7 +46,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
         }
     }
     switch (keycode) {
-        case KC_COMM,: return shifted ? S(KC_DOT) : KC_COMM;
+        case KC_COMM: return shifted ? S(KC_DOT) : KC_COMM;
         case KC_DOT: return shifted ? S(KC_COMM) : KC_DOT;
     }
 
