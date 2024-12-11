@@ -1,4 +1,4 @@
-name: Fetch and build layout
+name: ergodox_ez
 
 on:
   workflow_dispatch:
