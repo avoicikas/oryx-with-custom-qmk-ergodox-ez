@@ -34,6 +34,22 @@ bool achordion_chord(uint16_t tap_hold_keycode,
   return achordion_opposite_hands(tap_hold_record, other_record);
 }
 
+uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
+    bool shifted = (mods & MOD_MASK_SHIFT);  // Was Shift held?
+    if ((mods & MOD_MASK_CTRL)) {  // Was Ctrl held?
+        switch (keycode) {
+            case KC_C: return C(KC_V);
+            case KC_V: return C(KC_C);
+        }
+    }
+    switch (keycode) {
+        case KC_COMM: return shifted ? S(KC_DOT) : KC_COMM;
+        case KC_DOT: return shifted ? S(KC_COMM) : KC_DOT;
+    }
+
+    return KC_TRNS;  // Defer to default definitions.
+}
+
 enum custom_keycodes {
   RGB_SLD = EZ_SAFE_RANGE,
   ST_MACRO_0,
@@ -96,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_ergodox_pretty(
     KC_AUDIO_MUTE,  TD(DANCE_0),    TD(DANCE_1),    TD(DANCE_2),    TD(DANCE_3),    TD(DANCE_4),    KC_TRANSPARENT,                                 KC_TRANSPARENT, TD(DANCE_5),    TD(DANCE_6),    TD(DANCE_7),    TD(DANCE_8),    TD(DANCE_9),    KC_TRANSPARENT,
     CW_TOGG,        KC_Q,           KC_W,           LT(3,KC_E),     KC_R,           KC_T,           KC_F8,                                          KC_TRANSPARENT, KC_Y,           KC_U,           LT(3,KC_I),     KC_O,           KC_P,           LT(4,KC_DELETE),
-    MT(MOD_LSFT | MOD_LCTL, KC_TAB),MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_S),MT(MOD_LCTL, KC_D),MT(MOD_LSFT, KC_F),KC_G,                                                                           KC_H,           MT(MOD_RSFT, KC_J),MT(MOD_RCTL, KC_K),MT(MOD_RALT, KC_L),MT(MOD_RGUI, KC_SCLN),KC_TRANSPARENT,
+    MT(MOD_LSFT | MOD_LCTL, KC_TAB),MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_S),MT(MOD_LCTL, KC_D),MT(MOD_LSFT, KC_F),KC_G,                                                                           KC_H,           MT(MOD_RSFT, KC_J),MT(MOD_RCTL, KC_K),MT(MOD_RALT, KC_L),MT(MOD_RGUI, KC_SCLN), QK_REP,
     OSM(MOD_HYPR),  KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,           KC_F9,                                          KC_TRANSPARENT, KC_N,           KC_M,           KC_COMMA,       KC_DOT,         KC_SLASH,       OSM(MOD_MEH),
     KC_MS_LEFT,     KC_MS_UP,       KC_MS_DOWN,     KC_MS_RIGHT,    KC_MS_BTN1,                                                                                                     LT(6,KC_ESCAPE),KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,
                                                                                                     KC_MEDIA_PREV_TRACK,KC_MEDIA_NEXT_TRACK,KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,
@@ -116,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [2] = LAYOUT_ergodox_pretty(
     KC_TRANSPARENT, KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_TRANSPARENT,
     KC_TRANSPARENT, KC_EXLM,        KC_AT,          KC_PIPE,        KC_LCBR,        KC_RCBR,        KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_NO,          KC_TILD,        KC_DQUO,        KC_NO,          KC_NO,          KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_HASH,        KC_DLR,         KC_EQUAL,       KC_LPRN,        KC_RPRN,                                                                        KC_NO,          KC_UNDS,        KC_QUOTE,       KC_PLUS,        KC_ASTR,        KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_HASH,        KC_DLR,         KC_EQUAL,       KC_LPRN,        KC_RPRN,                                                                        KC_NO,          KC_UNDS,        KC_QUOTE,       KC_PLUS,        KC_ASTR,        QK_AREP,
     KC_TRANSPARENT, KC_PERC,        KC_CIRC,        KC_AMPR,        KC_LBRC,        KC_RBRC,        KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_NO,          KC_MINUS,       KC_GRAVE,       KC_TRANSPARENT, KC_BSLS,        KC_TRANSPARENT,
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                                                                                 TO(0),          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
                                                                                                     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
