@@ -6,9 +6,6 @@
 #undef DEBOUNCE
 #define DEBOUNCE 20
 
-#undef TAPPING_TERM
-#define TAPPING_TERM 160
-
 #define PERMISSIVE_HOLD
 
 #undef RGB_MATRIX_TIMEOUT
