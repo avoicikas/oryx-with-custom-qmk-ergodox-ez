@@ -37,6 +37,22 @@ bool achordion_chord(uint16_t tap_hold_keycode,
   return achordion_opposite_hands(tap_hold_record, other_record);
 }
 
+uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
+    bool shifted = (mods & MOD_MASK_SHIFT);  // Was Shift held?
+    if ((mods & MOD_MASK_CTRL)) {  // Was Ctrl held?
+        switch (keycode) {
+            case KC_C: return C(KC_V);
+            case KC_V: return C(KC_C);
+        }
+    }
+    switch (keycode) {
+        case KC_COMM,: return shifted ? S(KC_DOT) : KC_COMM;
+        case KC_DOT: return shifted ? S(KC_COMM) : KC_DOT;
+    }
+
+    return KC_TRNS;  // Defer to default definitions.
+}
+
 enum custom_keycodes {
   RGB_SLD = ML_SAFE_RANGE,
   ST_MACRO_0,
