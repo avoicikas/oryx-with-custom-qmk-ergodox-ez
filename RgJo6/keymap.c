@@ -9,33 +9,11 @@
 void matrix_scan_user(void) {
   achordion_task();
 }
+
 uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
   return 100;
 }
 
-bool achordion_chord(uint16_t tap_hold_keycode,
-                     keyrecord_t* tap_hold_record,
-                     uint16_t other_keycode,
-                     keyrecord_t* other_record) {
-  // Exceptionally consider the following chords as holds, even though they
-  // are on the same hand
-  // switch (tap_hold_keycode) {
-  //   case HOME_A:  // A + U.
-  //     if (other_keycode == HOME_U) { return true; }
-  //     break;
-  //
-  //   case HOME_S:  // S + H and S + G.
-  //     if (other_keycode == HOME_H || other_keycode == KC_G) { return true; }
-  //     break;
-  // }
-
-  // Also allow same-hand holds when the other key is in the rows below the
-  // alphas. I need the `% (MATRIX_ROWS / 2)` because my keyboard is split.
-  if (other_record->event.key.row % (MATRIX_ROWS / 2) >= 4) { return true; }
-
-  // Otherwise, follow the opposite hands rule.
-  return achordion_opposite_hands(tap_hold_record, other_record);
-}
 
 uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     bool shifted = (mods & MOD_MASK_SHIFT);  // Was Shift held?
@@ -892,3 +870,28 @@ tap_dance_action_t tap_dance_actions[] = {
         [DANCE_11] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_11, dance_11_finished, dance_11_reset),
         [DANCE_12] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_12, dance_12_finished, dance_12_reset),
 };
+
+bool achordion_chord(uint16_t tap_hold_keycode,
+                     keyrecord_t* tap_hold_record,
+                     uint16_t other_keycode,
+                     keyrecord_t* other_record) {
+  // Exceptionally consider the following chords as holds, even though they
+  // are on the same hand
+  switch (tap_hold_keycode) {
+    case KC_D:
+      // if (other_keycode == HOME_U) { return true; }
+      // break;
+      return true;
+
+    // case HOME_S:  // S + H and S + G.
+      // if (other_keycode == HOME_H || other_keycode == KC_G) { return true; }
+      // break;
+  }
+
+  // Also allow same-hand holds when the other key is in the rows below the
+  // alphas. I need the `% (MATRIX_ROWS / 2)` because my keyboard is split.
+  if (other_record->event.key.row % (MATRIX_ROWS / 2) >= 4) { return true; }
+
+  // Otherwise, follow the opposite hands rule.
+  return achordion_opposite_hands(tap_hold_record, other_record);
+}
