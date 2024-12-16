@@ -879,8 +879,16 @@ bool achordion_chord(uint16_t tap_hold_keycode,
   // are on the same hand
   switch (tap_hold_keycode) {
     case KC_D:
-      // if (other_keycode == HOME_U) { return true; }
-      // break;
+      return true;
+    case KC_A:
+      return true;
+    case KC_E:
+      return true;
+    case KC_SPACE:
+      return true;
+    case KC_L:
+      return true;
+    case KC_BSPC:
       return true;
 
     // case HOME_S:  // S + H and S + G.
