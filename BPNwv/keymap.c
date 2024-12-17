@@ -7,7 +7,7 @@ void matrix_scan_user(void) {
   achordion_task();
 }
 uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
-  return 120;
+  return 0;
 }
 
 uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
