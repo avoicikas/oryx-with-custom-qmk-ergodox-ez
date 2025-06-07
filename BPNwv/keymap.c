@@ -7,6 +7,10 @@ void matrix_scan_user(void) {
   achordion_task();
 }
 uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
+  switch (tap_hold_keycode) {
+        case KC_SPACE:
+            return 250;  // trying to fix mistyping m when i want -
+    }
   return 0;
 }
 
@@ -14,13 +18,36 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     bool shifted = (mods & MOD_MASK_SHIFT);  // Was Shift held?
     if ((mods & MOD_MASK_CTRL)) {  // Was Ctrl held?
         switch (keycode) {
-            case KC_C: return C(KC_V);
-            case KC_V: return C(KC_C);
+            case KC_C: return C(KC_V); // Ctrl+C repeats as Ctrl+V
+            case KC_V: return C(KC_C); // Ctrl+V repeats as Ctrl+C
+            case KC_Z: return C(KC_Y); // Ctrl+Z (Undo) repeats as Ctrl+Y (Redo)
+            case KC_Y: return C(KC_Z); // Ctrl+Y (Redo) repeats as Ctrl+Z (Undo)
+            case KC_LEFT: return C(KC_LEFT); // Ctrl+Left repeats as Ctrl+Left (word left)
+            case KC_RIGHT: return C(KC_RIGHT); // Ctrl+Right repeats as Ctrl+Right (word right)
+            case KC_BSPC: return C(KC_BSPC);   // Ctrl+Backspace repeats as Ctrl+Backspace (delete word back)
+            case KC_DEL: return C(KC_DEL);     // Ctrl+Delete repeats as Ctrl+Delete (delete word forward)
         }
     }
     switch (keycode) {
-        case KC_COMM: return shifted ? S(KC_DOT) : KC_COMM;
-        case KC_DOT: return shifted ? S(KC_COMM) : KC_DOT;
+        case KC_COMM: return shifted ? S(KC_DOT) : KC_COMM; // < repeats as >, comma repeats as comma
+        case KC_DOT:  return shifted ? S(KC_COMM) : KC_DOT;  // > repeats as <, period repeats as period
+        case KC_LEFT:  return C(KC_LEFT);   // Left Arrow repeats as Word Left
+        case KC_RIGHT: return C(KC_RIGHT);  // Right Arrow repeats as Word Right
+        case KC_UP:    return KC_PGUP;      // Up Arrow repeats as Page Up
+        case KC_DOWN:  return KC_PGDN;      // Down Arrow repeats as Page Down
+        case KC_BSPC:  return C(KC_BSPC);   // Backspace repeats as Ctrl+Backspace (delete word back)
+        case KC_DEL:   return C(KC_DEL);    // Delete repeats as Ctrl+Delete (delete word forward)
+        case KC_LPRN: return KC_RPRN;      // ( repeats as )
+        case KC_RPRN: return KC_LPRN;      // ) repeats as (
+        case KC_LBRC: return KC_RBRC;      // [ repeats as ]
+        case KC_RBRC: return KC_LBRC;      // ] repeats as [
+        case KC_LCBR: return KC_RCBR;      // { repeats as }
+        case KC_RCBR: return KC_LCBR;      // } repeats as {
+        case KC_MINS: // Minus or Underscore
+            return shifted ? KC_MINS : S(KC_EQL); // _ (S(KC_MINS)) repeats as -, - repeats as + (S(KC_EQL))
+        case KC_EQL:  // Equal or Plus
+            return shifted ? KC_MINS : KC_EQL;  // + (S(KC_EQL)) repeats as -, = repeats as =
+        case KC_TAB:  return S(KC_TAB);    // Tab repeats as Shift+Tab
     }
 
     return KC_TRNS;  // Defer to default definitions.
